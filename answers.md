@@ -72,6 +72,7 @@ Trình duyệt nhận file đóng vai trò "kiến trúc sư": Đọc cấu trú
 ### Câu A2 - Semantic HTML
 
 #### 1. Trang web bị Google đánh giá SEO thấp vì:
+
 - Sử dụng quá nhiều thẻ `<div>` vô nghĩa vì thế Google nó không hiểu đâu là nội dung chính, đâu là điều hướng.
 
 > Nguồn tham chiếu: 04_visible_part_html.md - Tại sao không dùng 'div' cho mọi thứ?
@@ -79,6 +80,7 @@ Trình duyệt nhận file đóng vai trò "kiến trúc sư": Đọc cấu trú
 <br>
 
 #### 2. Các lỗi semantic:
+
 - Phần đầu trang `<header>`: `<div class="header">`;
 - Danh sách menu: `<div menu="menu">`;
 - Phần thân trang `<main>`: `<div class="main">`;
@@ -111,29 +113,26 @@ Trình duyệt nhận file đóng vai trò "kiến trúc sư": Đọc cấu trú
   </article>
 </main>
 <footer>&copy; 2026 ShopTLU</footer>
-
 ```
+
 <br>
 
 ### Câu A3 - Block vs Inline
 
 - Kết quả hiển thị
 
-<pre>
---------------------------------
-|Hộp 1                         |
-|Text A Text B                 |
-|Hộp 2                         |
-|Text C <strong>Text D</strong>                 |
-|Hộp 3                         |
-|                              |
-|                              |
-|                              |
---------------------------------
-</pre>
+```text
+-------------------------
+| Hộp 1                 |
+| Text A Text B         |
+| Hộp 2                 |
+| Text C Text D         |
+| Hộp 3                 |
+-------------------------
+
+```
 
 - Giải thích:
-    + Đối với các thẻ `<div>` thì render ra trên browser text trong các thẻ sẽ xuống dòng vì vậy các nội dung như Hộp 1, Hộp 2 và Hộp 3 mới ở mỗi cái 1 dòng, tương tự với nội dung được bao bọc trong các thẻ đó.
-    + Đối với các thẻ `<span>` hoàn toàn có thể render trên cùng 1 dòng với thẻ nội dung khác vì vậy các nội dung "Text A Text B", "Text C Text D" mới có thể đứng cùng 1 hàng.
-    + Đối với thẻ `<strong>` tương tự như `<span>` nhưng thẻ này cso nhiệm vụ in đậm text bên trong và nói cho browser biết đây là nội dung cần chú ý.
-    
+  - Đối với các thẻ `<div>` thì render ra trên browser text trong các thẻ sẽ xuống dòng vì vậy các nội dung như Hộp 1, Hộp 2 và Hộp 3 mới ở mỗi cái 1 dòng, tương tự với nội dung được bao bọc trong các thẻ đó.
+  - Đối với các thẻ `<span>` hoàn toàn có thể render trên cùng 1 dòng với thẻ nội dung khác vì vậy các nội dung "Text A Text B", "Text C Text D" mới có thể đứng cùng 1 hàng.
+  - Đối với thẻ `<strong>` tương tự như `<span>` nhưng thẻ này cso nhiệm vụ in đậm text bên trong và nói cho browser biết đây là nội dung cần chú ý.
