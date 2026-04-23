@@ -125,7 +125,7 @@
 
 - Sự khác nhau giữa các thẻ `<thead>`,`<tbody>`,`<tfoot>`:
 
-   - `<thead>`: Dùng để thể hiện tiêu đề của bảng, thường chỉ đuợc dùng 1 lần để ghi nội dung tiêu đề.
+   -`<thead>`: Dùng để thể hiện tiêu đề của bảng, thường chỉ đuợc dùng 1 lần để ghi nội dung tiêu đề.
 
    -`<tbody>`: Dùng để chứa nội dung chính của bảng, có thể được dùng nhiều lần trong 1 bảng để chia dữ liệu thành các nhóm. 
 
