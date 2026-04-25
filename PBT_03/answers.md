@@ -1,0 +1,140 @@
+# 📋 PHIẾU BÀI TẬP 03
+# **CSS CORE — Selectors, Box Model, Inheritance & Cascade**
+
+## PHẦN A - KIỂM TRA ĐỌC HIỂU
+
+### Câu A1 - 3 cách nhúng css
+
+1. Inline CSS - trong attribute `<style>`:
+    - Ví dụ:
+        ```html
+            <h1 style="color: blue; font-size: 20px; ">Chào mừng bạn đến với blog của tôi!</h1>
+        ```
+    - Ưu điểm: Nhanh chóng, có độ ưu tiên cao nhất, không cần tạo thêm file.
+
+    - Nhược điểm: Làm code HTML trở nên rối, khó bảo trì, không thể tái dử dụng định dạng cho các phần tử khác.
+
+    - Chỉ nên dùng khi bạn muốn thay đổi nhanh một thuộc tính duy nhất cho một phần tử đặc biệt, hoặc khi viết CSS cho Email HTML.
+
+2. Internal CSS - trong thẻ `<style>`:
+
+    - Ví dụ: 
+        ```html
+            <head>
+                <style>
+                    body { background-color: #f0f0f0; }
+                    p { color: red; line-height: 1.5; }
+                </style>
+            </head>
+        ```
+    - Ưu điểm: Dễ quản lý hơn Inline CSS vì tất cả nằm tập trung 1 chỗ, không cần gửi thêm yêu cầu HTML để tải file bên ngoài.
+
+    - Nhược điểm: Chỉ có tác dụng cho duy nhất một trang web đó, nếu website có nhiều trang, bạn sẽ phải copy đoạn code này sang từng trang, gây lãng phí thời gian.
+
+    - Nên dùng cho các website chỉ có một trang hoặc khi bạn muốn tuỳ chỉnh giao diện riêng biệt cho một trang cụ thể mà không ảnh hưởng đến toàn bộ hệ thống.
+
+3. External CSS - file riêng:
+
+    - Ví dụ:
+        File `style.css`
+            ```css
+                h1 { color: darkgreen; }
+                .container { width: 80%; margin: auto; }
+            ```
+        File `index.html`
+            ```html
+                <head>
+                    <link rel="stylesheet" type="text/css" href="style.css">
+                </head>
+            ```
+    - Ưu điểm: 
+        - Tách biệt hoàn toàn nội dung (HTML) và giao diện (CSS)
+        - Dễ dàng thay đổi giao diện toàn bộ website hàng nghìn trang bằng cách chỉnh sửa 1 file duy nhất
+        - Trình duyệt có thể lưu bộ nhớ đệm(cache) giúp tải trang nhanh hơn.
+    
+    - Nhược điểm: Cần thêm một yêu cầu tải file từ server, nếu file CSS bị lỗi đường dẫn, trang web sẽ mất toàn bộ định dạng.
+
+    - Đây là phương pháp tiêu chuẩn cho mọi dự án website thực tế, đặc biệt là các website có nhiều trang.
+**Câu hỏi thêm:** 
+    - Inline CSS `>` Internal CSS `>` External CSS
+    - Giải thích:
+        - Inline CSS: Nằm trực tiếp trong thuộc tính `style` của thẻ
+        - Internal CSS & External CSS: Cái nào viết sau sẽ thắng vì code sẽ chạy từ trên xuống dưới.
+
+> Nguồn tham chiếu: 08_introduction_css.md - ⚙️ Core Technical Truth
+
+### Câu A2 — CSS Selectors — Dự đoán kết quả
+
+1. `h1`
+    - Chọn: `<h1>ShopTLU</h1>`
+    - Text: ShopTLU
+2. `.price`
+    - Chọn: `<p class="price">25.990.000đ</p>`
+            `<p class="price">45.990.000đ</p>`
+    - Text: 25.990.000đ
+            45.990.000đ
+3. `#app header`
+    - Chọn: Toàn bộ nội dung trong thẻ `<header>` bao gồm `<h1>` và `<nav>`.
+    - Text: ShopTLU Home Product About
+4. `nav a:first-child`
+    - Chọn: `<a href="/" class="active">Home</a>`
+    - Text: Home
+5. `product.featured h2`
+    - Chọn: `<h2>MacBook Pro</h2>`
+    - Text: MacBook Pro
+6. `articale > p `
+    - Chọn: `<p class="price">25.990.000đ</p>`
+            `<p>Mô tả sản phẩm...</p>`
+            `<p class="price">45.990.000đ</p>`
+            `<p>Mô tả sản phẩm...</p>`
+    - Text: của Iphone 16
+            của Iphone 16
+            của MacBook Pro
+            của MacBook Pro
+7. `a[href="/"]`
+    - Chọn: `<a href="/" class="active">Home</a>`
+    - Text: Home
+8. `.top-bar.dark h1`
+    - Chọn: `<h1>ShopTLU</h1>`
+    - Text: ShopTLU
+
+> Nguồn tham chiếu: 09_css_selectors.md - 🌐 Big Picture — Bản đồ Selectors
+
+### Câu A3 — Box Model — Tính toán kích thước
+
+1. Trường hợp 1: `content-box`
+    - Chiều rộng hiển thị: 450px
+    - Không gian chiếm trên trang: 470px
+2. Trường hợp 2: `border-box`
+    - Chiều rộng hiển thị: 400px
+    - Kích thước content thực tế: 350px
+    - Không gian chiếm trên trang: 420px
+3. Trường hợp 3: Margin collapsse
+    - Khoảng cách giữa các box-a và box-b: 40px
+    - Giải thích tại sao KHÔNG PHẢI 65px: Margin dọc giữa 2 block element GỘPLẠI = lấy cái LỚN HƠN
+
+> Nguồn tham chiếu: 11_box_model.md - ⚙️ Core Technical Truth
+
+**Nâng cao:** Khoảng cách giữa box-a và box-b = 30px
+
+### Câu A4 — Specificity (Độ ưu tiên)
+
+1. Bảng tính Specificity Score
+
+    | Rule | Selector | ID (a) | Class (b) | Type (c) | Tổng điểm |
+    | :--- | :--- | :---: | :---: | :---: | :--- |
+    | **Rule A** | `p` | 0 | 0 | 1 | (0, 0, 1) |
+    | **Rule B** | `.price` | 0 | 1 | 0 | (0, 1, 0) |
+    | **Rule C** | `#main-price` | 1 | 0 | 0 | (1, 0, 0) |
+    | **Rule D** | `p.price` | 0 | 1 | 1 | (0, 1, 1) |
+
+2. Element có màu đỏ
+     Vì:  ID - Rule C có quyền năng cao nhất trong 4 selector này, nên rule C thắng tuyệt đối kể cả các selector khác có dài hơn hay không.
+
+3. Nếu thêm `<p class="price" id="main-price" style="color: orange;">`, element có màu cam.
+    Vì: Inline `style` có độ ưu tiên cao hơn tất cả các selector nằm trong External CSS(file riêng) hoặc Internal CSS(thẻ `<style>`)   
+
+4. Nếu Rule A thêm `!important`, element có màu đen
+    Vì: Từ khóa `!important` là một "vũ khí đặc biệt". Nó không nằm trong thang điểm Specificity thông thường mà nó ghi đè lên tất cả, kể cả Inline style hay ID selector. Khi trình duyệt thấy `!important`, nó sẽ ưu tiên thuộc tính đó ngay lập tức, bất chấp các quy tắc xếp chồng khác.
+
+> Nguồn tham chiếu: 10_inheritance_cascading.md
