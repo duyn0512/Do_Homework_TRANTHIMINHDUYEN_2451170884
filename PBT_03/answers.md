@@ -36,12 +36,14 @@
 3. External CSS - file riêng:
 
     - Ví dụ:
-        File `style.css`
+        File `style.css`:
+
             ```css
                 h1 { color: darkgreen; }
                 .container { width: 80%; margin: auto; }
             ```
-        File `index.html`
+        File `index.html`:
+
             ```html
                 <head>
                     <link rel="stylesheet" type="text/css" href="style.css">
@@ -105,11 +107,13 @@
 1. Trường hợp 1: `content-box`
     - Chiều rộng hiển thị: 450px
     - Không gian chiếm trên trang: 470px
+
 2. Trường hợp 2: `border-box`
     - Chiều rộng hiển thị: 400px
     - Kích thước content thực tế: 350px
     - Không gian chiếm trên trang: 420px
 3. Trường hợp 3: Margin collapsse
+
     - Khoảng cách giữa các box-a và box-b: 40px
     - Giải thích tại sao KHÔNG PHẢI 65px: Margin dọc giữa 2 block element GỘPLẠI = lấy cái LỚN HƠN
 
@@ -138,3 +142,73 @@
     Vì: Từ khóa `!important` là một "vũ khí đặc biệt". Nó không nằm trong thang điểm Specificity thông thường mà nó ghi đè lên tất cả, kể cả Inline style hay ID selector. Khi trình duyệt thấy `!important`, nó sẽ ưu tiên thuộc tính đó ngay lập tức, bất chấp các quy tắc xếp chồng khác.
 
 > Nguồn tham chiếu: 10_inheritance_cascading.md
+
+## PHẦN B — THỰC HÀNH CODE
+
+### Bài B2 — Box Model Lab
+
+1. Phần 1: Chứng minh content-box vs border-box
+
+    - ![Kết quả hiển thị Border-box](./screenshots/border-box-measurement.jpg)
+
+    - ![Kết quả hiển thị Content-box](./screenshots/content-box-measurement.jpg)
+
+    - Hộp 1: Chiều rộng thực tế = 350px
+
+    - Hộp 2: Chiều rộng thực tế = 300px
+
+    - Giải thích sự khác biệt:
+        - Content-box: 
+            - Trình duyệt coi `width` chỉ là phần chứa nội dung.
+            -  Padding và Border sẽ được cộng thêm ra bên ngoài, làm phần tử phình to hơn dự kiến.
+        - Border-box:
+            - Trình duyệt  coi `width` là kích thước cuối cùng của hộp.
+            - Padding và Border sẽ lấn vào bên trong, giúp kiểm soát layout chính xác hơn.
+
+2. Phần 2: Layout 3 cột
+
+    - Nếu KHÔNG dùng `border-box`:
+        TotalWidth = Width + Padding(left+right) + Border(left+right) 
+                   = 250 + 30 + 500 + 40 + 250 + 30
+                   = 1100px
+
+    - ![Kết quả hiển thị Layout columns border-box](./screenshots/layout-3-columns-border-box.jpg)
+
+    ![Kết quả hiển thị Layout overflow content-box](./screenshots/layout-overflow-content-box.jpg)
+
+### Bài B3 — Specificity Battle
+
+ 1. Danh sách 10 Rules và Specificity Score
+
+    Sắp xếp theo thứ tự ưu tiên từ thấp đến cao:
+
+    | STT | Selector | Specificity Score | Màu sắc |
+    |:---:|:---|:---:|:---|
+    | 1 | `*` | 0, 0, 0 | Gray |
+    | 2 | `p` | 0, 0, 1 | Silver |
+    | 3 | `.text` | 0, 1, 0 | Blue |
+    | 4 | `[class~="highlight"]` | 0, 1, 0 | Green |
+    | 5 | `p.text` | 0, 1, 1 | Purple |
+    | 6 | `.text.highlight` | 0, 2, 0 | Orange |
+    | 7 | `p.text.highlight` | 0, 2, 1 | Brown |
+    | 8 | `#demo` | 1, 0, 0 | Red |
+    | 9 | `p#demo` | 1, 0, 1 | Navy |
+    | 10 | `#demo.text.highlight` | 1, 2, 0 | **DeepSkyBlue** |
+
+2. Phần tử cuối cùng hiển thị màu **DeepSkyBlue** 
+
+    - Vì: 
+        - Trình duyệt tính toán có độ ưu tiên (Specificity) theo công thức: `(ID, Class/Artribute, Element)`.
+        - Rule cuối cùng `#demo.text.highlight` có:
+            - 1 ID (`#demo`)
+            - 2 Class (`.text`, `.highlight`)
+            - 0 Element
+        => Điểm: **1 , 2, 0**. Đây là số điểm cao nhất trong tất cả các rule đã viết, nên nó được ưu tiên áp dụng. 
+
+3. ![Kết quả Specificity](./screenshots/specificity-result.jpg)
+
+4. Nếu thay đổi thứ tự rules trong CSS file thì kết quả vẫn không thay đổi. 
+Vì:  
+    Trong CSS, khi các Selector có **Specificity khác nhau** , trình duyệt sẽ luôn chọn Selector có điểm cao nhất bất kể nó nằm ở vị trí nào và thứ tự viết code chỉ có tác dụng khi hai Selector có **cùng mức Specificity**.
+
+> Nguồn tham chiếu: 10.inheritance_cascading.md - ⚙️ Core Technical Truth
