@@ -1,0 +1,29 @@
+/* 1. Universal selector - Specificity: 0,0,0 */
+*{ color: #bdc3c7; }
+
+/* 2. Element selctor - Specificity: 0,0,1 */
+p { color: #95a5a6;}
+
+/* 3. Class selector - Specificity: 0,1,0 */
+.text { color: #3498db; }
+
+/* 4. Attribute selector - Specificity: 0,1,0 */
+[class~="highlight"] { color: #2ecc71; }
+
+/* 5. Element + Class - Specificity: 0,1,1 */
+p.text { color: #9b59b6; }
+
+/* 6. Multiple classes - Specificity: 0,2,0 */
+.text.highlight { color: #f1c40f; }
+
+/* 7. Element + Multiple Classes - Specificity: 0,2,1 */
+p.text.highlight { color: #e67e22; }
+
+/* 8. ID selector - Specificity: 1,0,0 */
+#demo { color: #e74c3c; }
+
+/* 9. Element + ID - Specificity: 1,0,1 */
+p#demo { color: #2c3e50; }
+
+/* 10. ID + Multiple Classes - Specificity: 1,2,0 */
+#demo.text.highlight { color: #00ced1; }
